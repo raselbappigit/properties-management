@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@Html.RenderTitle() - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/css")" rel="stylesheet" type="text/css" />
+    <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/themes/base/css")" rel="stylesheet" type="text/css" />
+    <script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")"></script>
+    @Html.Partial("_AppPartial")
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    @Html.RenderMessages()
+    <div class="pagetop">
+        <div class="head pagesize">
+            <!-- *** head layout *** -->
+            <div class="head_top">
+                <div class="topbuts">
+                    @Html.Partial("_LoginPartial")
+                </div>
+                <div class="logo clear">
+                    <a href="@Url.Content("~/Home/Index")" title="View dashboard">
+                        <img src="../Images/logo.png" alt="Logo" class="picture"></a>
+                </div>
+            </div>
+            <div class="menu">
+                <ul class="clear">
+                    <li class="active"><a href="@Url.Content("~/Home/Index")">Dashboard</a></li>
+                    <li><a href="@Url.Content("~/Home/Index")">Articles</a></li>
+                    <li><a href="@Url.Content("~/Home/Index")">Styles</a>
+                        <ul style="visibility: hidden; display: block;">
+                            <li><a href="@Url.Content("~/Home/Index")">Content Boxes</a></li>
+                            <li><a href="#">Columns</a>
+                                <ul style="visibility: hidden; display: block;">
+                                    <li><a href="#">Boxes in Columns</a></li>
+                                    <li><a href="#">Columns in Boxes</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Forms</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Tables</a></li>
+                    <li><a href="#">Charts</a></li>
+                    <li><a href="#">Image Gallery</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="breadcrumb">
+        <div class="bread-links pagesize">
+            <ul class="clear">
+                <li class="first">You are here:</li>
+                <li>@Html.RenderBreadcrumb()</li>
+            </ul>
+        </div>
+    </div>
+    <div class="main pagesize">
+        <div class="main-wrap">
+            <div class="page clear">
+                <div class="content-box clear">
+                    <div class="box-body iconbar">
+                        <div class="box-wrap">
+                            @Html.Partial("_IconPartial")
+                        </div>
+                    </div>
+                </div>
+                <div class="content-main">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="pagesize clear">
+            <p class="bt-space15">
+                <span class="copy"><strong>&copy; @DateTime.Now.Year Copyright by <a href="#">Company Site</a></strong></span><span> Powered by <strong><a href="#">COMPANY ADMIN.</a></strong></span></p>
+                <img src="../Images/logo.png" alt="Logo" class="block center">
+        </div>
+    </div>
+</body>
+</html>

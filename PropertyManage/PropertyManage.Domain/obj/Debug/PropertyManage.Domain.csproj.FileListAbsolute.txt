@@ -1,0 +1,8 @@
+E:\Properties Management\Project v1\PropertyManage\PropertyManage.Domain\bin\Debug\PropertyManage.Domain.dll.config
+E:\Properties Management\Project v1\PropertyManage\PropertyManage.Domain\bin\Debug\PropertyManage.Domain.dll
+E:\Properties Management\Project v1\PropertyManage\PropertyManage.Domain\bin\Debug\PropertyManage.Domain.pdb
+E:\Properties Management\Project v1\PropertyManage\PropertyManage.Domain\bin\Debug\EntityFramework.dll
+E:\Properties Management\Project v1\PropertyManage\PropertyManage.Domain\bin\Debug\EntityFramework.xml
+E:\Properties Management\Project v1\PropertyManage\PropertyManage.Domain\obj\Debug\ResolveAssemblyReference.cache
+E:\Properties Management\Project v1\PropertyManage\PropertyManage.Domain\obj\Debug\PropertyManage.Domain.dll
+E:\Properties Management\Project v1\PropertyManage\PropertyManage.Domain\obj\Debug\PropertyManage.Domain.pdb

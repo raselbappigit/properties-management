@@ -1,0 +1,17 @@
+﻿@model IEnumerable<PropertyManage.Web.ViewModels.AssignRoleModel>
+<div id="user-role-list">
+    @if (Model.Count() != 0)
+    {
+        foreach (var item in Model.ToList())
+        {
+        <div class="display-field">
+            <strong>Role Name : </strong><span>@Html.DisplayFor(model => item.RoleName)</span>
+            <strong>Is Assign : </strong><span>@Html.DisplayFor(model => item.Assigned)</span>
+        </div>
+        }
+    }
+    else
+    {
+        <span class="no-data">Nothing found - Sorry</span> 
+    }
+</div>

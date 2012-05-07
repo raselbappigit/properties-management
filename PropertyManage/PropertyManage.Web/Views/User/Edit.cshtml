@@ -1,0 +1,80 @@
+﻿@model PropertyManage.Web.UserModel
+<div id="edit-user">
+    <div class="title">
+        <h1>User.</h1>
+        <h2>Use the form below to edit a user.</h2>
+    </div>
+    <p class="message-info">
+        Passwords are required to be a minimum of @Membership.MinRequiredPasswordLength
+        characters in length.
+    </p>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.DisplayFor(m => m.UserName)
+                    @Html.HiddenFor(m => m.UserName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Email)
+                    @Html.EditorFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.OldPassword)
+                    @Html.PasswordFor(m => m.OldPassword)
+                    @Html.ValidationMessageFor(m => m.OldPassword)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.NewPassword)
+                    @Html.PasswordFor(m => m.NewPassword)
+                    @Html.ValidationMessageFor(m => m.NewPassword)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                    @Html.PasswordFor(m => m.ConfirmPassword)
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Comment)
+                    @Html.TextAreaFor(m => m.Comment)
+                    @Html.ValidationMessageFor(m => m.Comment)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.IsApproved)
+                    @Html.CheckBoxFor(m => m.IsApproved)
+                    @Html.ValidationMessageFor(m => m.IsApproved)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.DateCreated)
+                    @Html.DisplayFor(m => m.DateCreated)
+                    @Html.HiddenFor(m => m.DateCreated)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.DateLastLogin)
+                    @Html.DisplayFor(m => m.DateLastLogin)
+                    @Html.HiddenFor(m => m.DateLastLogin)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.DateLastActivity)
+                    @Html.DisplayFor(m => m.DateLastActivity)
+                    @Html.HiddenFor(m => m.DateLastActivity)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.DateLastPasswordChange)
+                    @Html.DisplayFor(m => m.DateLastPasswordChange)
+                    @Html.HiddenFor(m => m.DateLastPasswordChange)
+                </li>
+            </ol>
+            <p>
+                <input type="submit" value="Edit" />
+                | @Html.ActionLink("Cencel", "Index")
+            </p>
+        </fieldset>
+    }
+    <div>
+    </div>
+</div>

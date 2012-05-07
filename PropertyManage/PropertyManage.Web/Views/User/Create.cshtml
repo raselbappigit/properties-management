@@ -1,0 +1,45 @@
+﻿@model PropertyManage.Web.Models.RegisterModel
+<div id="add-user">
+    <div class="title">
+        <h1>User.</h1>
+        <h2>Use the form below to create a new user.</h2>
+    </div>
+    <p class="message-info">
+        Passwords are required to be a minimum of @Membership.MinRequiredPasswordLength
+        characters in length.
+    </p>
+    @using (Html.BeginForm("Create", "User"))
+    {
+
+        @Html.ValidationSummary(true, "User creation was unsuccessful. Please correct the errors and try again.")
+
+        <fieldset id="addUser">
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName)
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email)
+                    @Html.ValidationMessageFor(m => m.Email)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                    @Html.PasswordFor(m => m.ConfirmPassword)
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                </li>
+            </ol>
+            <p>
+                <input type="submit" value="Create" />
+                | @Html.ActionLink("Cencel", "Index")
+            </p>
+        </fieldset>
+    }
+</div>

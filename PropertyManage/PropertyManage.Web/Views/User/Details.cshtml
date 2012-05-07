@@ -1,0 +1,71 @@
+﻿@model PropertyManage.Domain.User
+<div id="details-user">
+    <div class="title">
+     <h1>User.</h1>
+     <h2>@Model.UserName detail below.</h2>
+</div>
+    <fieldset>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.UserName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.UserName)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Email)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Email)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Comment)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Comment)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.IsApproved)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.DateCreated)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.DateLastLogin)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.DateLastLogin)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.DateLastActivity)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.DateLastActivity)
+        </div>
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.DateLastPasswordChange)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.DateLastPasswordChange)
+        </div>
+        <div id="usr-role">
+            <div class="display-label">
+                Role Name
+            </div>
+            @foreach (var usrRole in Model.Roles.ToList())
+            {
+                <div class="display-field">
+                    @Html.DisplayFor(model => usrRole.RoleName)
+                </div>
+            }
+        </div>
+        <p>
+            @Html.ActionLink("Back to list", "Index")
+        </p>
+    </fieldset>
+</div>

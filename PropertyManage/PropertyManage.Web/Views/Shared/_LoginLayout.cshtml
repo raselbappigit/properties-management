@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@Html.RenderTitle() - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    @Html.Partial("_AppPartial")
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body class="login">
+    @Html.RenderMessages()
+    <div class="login-box">
+        <div class="login-border">
+            <div class="login-style">
+                <div class="login-header">
+                    <div class="logo clear">
+                        <img src="../Images/logo.png" alt="Logo" class="picture">
+                    </div>
+                </div>
+                <div class="content-main">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-links">
+        <p>
+            <strong>&copy; @DateTime.Now.Year Copyright by <a href="http://www.systechbd.com/">systechbd.com</a></strong>
+            All rights reserved.</p>
+    </div>
+</body>
+</html>

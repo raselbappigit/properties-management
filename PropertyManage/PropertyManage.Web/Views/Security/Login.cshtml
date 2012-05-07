@@ -1,0 +1,34 @@
+@model PropertyManage.Web.Models.LoginModel
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+@using (Html.BeginForm((string)ViewBag.FormAction, "Security"))
+{
+    @Html.ValidationSummary(true, "Log in was unsuccessful. Please correct the errors and try again.")
+
+    <div class="login-inside">
+        <div class="login-data">
+            <div class="row clear">
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName)
+            </div>
+            <div class="row clear">
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+            <input class="button" type="submit" value="Log in" />
+        </div>
+        <p>
+            @Html.ActionLink("Reset Password", "ForgetPassword", "Account") if you forget your password.
+        </p>
+    </div>
+    <div class="login-footer clear">
+        <span class="remember">
+            @Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+        </span>
+    </div>
+
+}
