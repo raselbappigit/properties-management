@@ -26,24 +26,15 @@
             </div>
             <div class="menu">
                 <ul class="clear">
-                    <li class="active"><a href="@Url.Content("~/Home/Index")">Dashboard</a></li>
-                    <li><a href="@Url.Content("~/Home/Index")">Articles</a></li>
-                    <li><a href="@Url.Content("~/Home/Index")">Styles</a>
-                        <ul style="visibility: hidden; display: block;">
-                            <li><a href="@Url.Content("~/Home/Index")">Content Boxes</a></li>
-                            <li><a href="#">Columns</a>
-                                <ul style="visibility: hidden; display: block;">
-                                    <li><a href="#">Boxes in Columns</a></li>
-                                    <li><a href="#">Columns in Boxes</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Forms</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Tables</a></li>
-                    <li><a href="#">Charts</a></li>
-                    <li><a href="#">Image Gallery</a></li>
-                    <li><a href="#">Settings</a></li>
+                    <li class="@Html.RenderActiveTab()"><a href="@Url.Content("~/Dashboard/Index")">Dashboard</a></li>
+                    <li class="@Html.RenderActiveTab()"><a href="@Url.Content("~/Project")">Project</a></li>
+                    <li class="@Html.RenderActiveTab()"><a href="@Url.Content("~/Purchase")">Purchase</a></li>
+                    <li class="@Html.RenderActiveTab()"><a href="@Url.Content("~/Inventory")">Inventory</a></li>
+                    <li class="@Html.RenderActiveTab()"><a href="@Url.Content("~/Account")">Account</a></li>
+                    <li class="@Html.RenderActiveTab()"><a href="@Url.Content("~/Human")">HR</a></li>
+                    <li class="@Html.RenderActiveTab()"><a href="@Url.Content("~/Sale")">Sales</a></li>
+                    <li class="@Html.RenderActiveTab()"><a href="@Url.Content("~/Report")">Reports</a></li>
+                    <li class="@Html.RenderActiveTab()"><a href="@Url.Content("~/Setting")">Settings</a></li>
                 </ul>
             </div>
         </div>
@@ -59,24 +50,16 @@
     <div class="main pagesize">
         <div class="main-wrap">
             <div class="page clear">
-                <div class="content-box clear">
-                    <div class="box-body iconbar">
-                        <div class="box-wrap">
-                            @Html.Partial("_IconPartial")
-                        </div>
-                    </div>
-                </div>
-                <div class="content-main">
-                    @RenderBody()
-                </div>
+                @RenderBody()
             </div>
         </div>
     </div>
     <div class="footer">
         <div class="pagesize clear">
             <p class="bt-space15">
-                <span class="copy"><strong>&copy; @DateTime.Now.Year Copyright by <a href="#">Company Site</a></strong></span><span> Powered by <strong><a href="#">COMPANY ADMIN.</a></strong></span></p>
-                <img src="../Images/logo.png" alt="Logo" class="block center">
+                <span class="copy"><strong>&copy; @DateTime.Now.Year Copyright by <a href="#">Company
+                    Site</a></strong></span><span> Powered by <strong><a href="#">COMPANY ADMIN.</a></strong></span></p>
+            <img src="../Images/logo.png" alt="Logo" class="block center">
         </div>
     </div>
 </body>

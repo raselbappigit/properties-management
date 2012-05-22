@@ -5,5 +5,5 @@ using System.Web;
 
 namespace PropertyManage.Web
 {
-    public enum MessageType { Success, Error, Notice }
+    public enum MessageType { Success, Error, Information, Attention }
 }

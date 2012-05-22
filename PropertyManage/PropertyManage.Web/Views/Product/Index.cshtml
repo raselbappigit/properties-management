@@ -1,0 +1,39 @@
+﻿<div id="product-list">
+    <h2>
+        Land Management</h2>
+    <p>
+        @Html.ActionLink("Create Land", "Create", "Product", new { @class = "button" })
+    </p>
+    <div id="products-data-table">
+        <table id="prodDataTable" class="dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        Options
+                    </th>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Main Cost
+                    </th>
+                    <th>
+                        Other Cost
+                    </th>
+                    <th>
+                        Category Name
+                    </th>
+                    <th>
+                        Project Name
+                    </th>
+                    <th>
+                        Unit Value
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/App/product-jquery.js")" type="text/javascript"></script>

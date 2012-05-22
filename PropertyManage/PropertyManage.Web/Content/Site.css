@@ -1,1 +1,407 @@
-﻿
+﻿.float-left
+{
+    float: left;
+}
+
+.float-right
+{
+    float: right;
+}
+
+.highlight
+{
+    background-color: #a6dbed;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.clear-fix:after
+{
+    content: ".";
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+/* site title
+----------------------------------------------------------*/
+.site-title
+{
+    color: #c8c8c8;
+    font-family: Rockwell, Consolas, "Courier New" , Courier, monospace;
+    font-size: 2.3em;
+    margin: 10px 0;
+}
+
+.site-title a, .site-title a:hover, .site-title a:active
+{
+    background: none;
+    color: #c8c8c8;
+    outline: none;
+    text-decoration: none;
+}
+
+/* ordered list */
+ol.round
+{
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ol.round li
+{
+    margin: 25px 0;
+    padding-left: 45px;
+}
+
+ol.round li.one
+{
+    background: url("../Images/orderedListOne.png") no-repeat;
+}
+
+ol.round li.two
+{
+    background: url("../Images/orderedListTwo.png") no-repeat;
+}
+
+ol.round li.three
+{
+    background: url("../Images/orderedListThree.png") no-repeat;
+}
+
+/* content */
+article
+{
+    float: left;
+    width: 70%;
+}
+
+aside
+{
+    float: right;
+    width: 25%;
+}
+
+aside ul
+{
+    list-style: none;
+    padding: 0;
+}
+
+aside ul li
+{
+    background: url("../Images/bullet.png") no-repeat 0 50%;
+    padding: 2px 0 2px 20px;
+}
+
+.label
+{
+    font-weight: 700;
+}
+
+/* contact */
+.contact h3
+{
+    font-size: 1.2em;
+}
+
+.contact p
+{
+    margin: 5px 0 0 10px;
+}
+
+.contact iframe
+{
+    border: 1px solid #333;
+    margin: 5px 0 0 10px;
+}
+
+/* forms */
+fieldset
+{
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+fieldset legend
+{
+    display: none;
+}
+
+fieldset ol
+{
+    padding: 0;
+    list-style: none;
+}
+
+fieldset ol li
+{
+    padding-bottom: 5px;
+}
+
+fieldset label
+{
+    display: block;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+fieldset label.checkbox
+{
+    display: inline;
+}
+
+fieldset input[type="text"], fieldset input[type="password"]
+{
+    border: 1px solid #e2e2e2;
+    color: #333;
+    font-size: 1.2em;
+    margin: 5px 0 6px 0;
+    padding: 5px;
+    width: 300px;
+}
+
+fieldset input[type="text"]:focus, fieldset input[type="password"]:focus
+{
+    border: 1px solid #7ac0da;
+}
+
+fieldset input[type="submit"]
+{
+    background-color: #d3dce0;
+    border: 1px solid #787878;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 7px;
+}
+
+/* ajax login/registration dialog */
+.modal-popup
+{
+    font-size: 0.7em;
+}
+
+.modal-popup input[type="text"], .modal-popup input[type="password"]
+{
+    width: 90%;
+}
+
+/* info and errors */
+.message-info
+{
+    border: 1px solid;
+    clear: both;
+    padding: 10px 20px;
+}
+
+.message-error
+{
+    clear: both;
+    color: #e80c4d;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.message-success
+{
+    color: #7ac0da;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.error
+{
+    color: #e80c4d;
+}
+
+/* styles for validation helpers */
+.field-validation-error
+{
+    color: #e80c4d;
+    font-weight: bold;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+input[type="text"].input-validation-error, input[type="password"].input-validation-error
+{
+    border: 1px solid #e80c4d;
+}
+
+.validation-summary-errors
+{
+    border: 1px solid #666666;
+    border-radius: 3px;
+    display: block;
+    margin-bottom: 15px;
+    overflow: hidden;
+    padding: 9px 0px 4px 0px;
+    position: relative;
+    z-index: 1;
+    zoom: 1;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background: url('../images/ico_error.png') 2px 0px no-repeat #FAE2E3;
+    border-color: #EC9B9B;
+}
+
+.validation-summary-errors a.close
+{
+    display: block;
+    width: 11px;
+    height: 11px;
+    background: url('../images/ico_close_off.png') top left no-repeat;
+    font-size: 0%;
+    text-indent: -9999px;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}
+
+.validation-summary-errors a.close:hover
+{
+    background: url('../images/ico_close_ovr.png') top left no-repeat;
+}
+
+.validation-summary-errors p
+{
+    color: #333333;
+    line-height: 16px;
+    padding: 0px 25px 5px 42px !important;
+}
+
+.validation-summary-errors span
+{
+    color: #333333;
+    line-height: 16px;
+    padding: 0px 25px 5px 42px !important;
+}
+
+.validation-summary-errors ul
+{
+    color: #333333;
+    line-height: 16px;
+    padding: 0px 25px 5px 42px !important;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+/* application css style
+----------------------------------------------------------*/
+
+.logo
+{
+}
+
+
+fieldset textarea
+{
+    border: 1px solid #e2e2e2;
+    color: #333;
+    font-size: 1.2em;
+    margin: 5px 0 6px 0;
+    padding: 5px;
+    width: 300px;
+}
+
+fieldset textarea:focus
+{
+    border: 1px solid #7ac0da;
+}
+
+.display-label
+{
+    display: block;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.display-field
+{
+    display: block;
+}
+
+.no-data
+{
+}
+
+.img-expand-collapse
+{
+    padding: 0px;
+    margin: 0px 10px -5px 0px;
+}
+
+.radio-label
+{
+}
+
+.radio-field
+{
+}
+
+.chkbox-label
+{
+    padding: 2px 5px 0px 5px !important;
+}
+
+.chkbox-field
+{
+}
+
+.tb-space
+{
+    margin: 0px 10px -2px 0px;
+    padding: 0px;
+}
+
+
+/* Success, information and error boxes
+-------------------------------------------------------------- */
+
+.error, .information, .success .attention
+{
+    padding: .8em;
+    border: 2px solid #ddd;
+    margin-bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    filter: alpha(opacity=90); /* internet explorer */
+    -khtml-opacity: 0.9; /* khtml, old safari */
+    -moz-opacity: 0.9; /* mozilla, netscape */
+    opacity: 0.9; /* fx, safari, opera */
+}
+
+.error
+{
+    background: url('../images/ico_error.png') 2px 0px no-repeat #FAE2E3;
+    border-color: #EC9B9B;
+}
+.information
+{
+    background: url('../images/ico_info.png') 2px 0px no-repeat #DDE9F7;
+    border-color: #50B0EC; 
+}
+.success
+{
+background: url('../images/ico_success.png') 2px 0px no-repeat #DFFAD3; 
+border-color: #72CB67;
+}
+.attention
+{
+    background: url('../images/ico_attention.png') 2px 0px no-repeat #FFFAC6; 
+    border-color: #D3C200;
+}
+

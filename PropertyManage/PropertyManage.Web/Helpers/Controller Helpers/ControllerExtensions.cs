@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PropertyManage.Web;
 
-namespace PropertyManage.Web.Helpers.Controller_Helpers
+namespace PropertyManage.Web.Helpers
 {
     public static class ControllerExtensions
     {
@@ -19,12 +19,13 @@ namespace PropertyManage.Web.Helpers.Controller_Helpers
         {
             string breadcrumbLink = string.Empty;
 
-            breadcrumbLink += "<a href='" + contrl + "/" + action + "'>" + contrl + " > " + action + "</a>";
+            //breadcrumbLink += @"<a href='/" + contrl + "/" + action + "'>" + contrl + " > " + action + "</a>";
+            breadcrumbLink += @" <span><a href='/" + contrl + "'>" + contrl + "</a> > <a href='/" + contrl + "/" + action + "'>" + action + "</a></span> ";
 
             controller.ViewBag.Breadcrumb = breadcrumbLink;
         }
 
-        public static void ShowMessage(this Controller controller, string message, MessageType messageType = MessageType.Notice, bool showAfterRedirect = true)
+        public static void ShowMessage(this Controller controller, string message, MessageType messageType = MessageType.Information, bool showAfterRedirect = true)
         {
             var messageTypeKey = messageType.ToString();
             if (showAfterRedirect)
@@ -35,6 +36,12 @@ namespace PropertyManage.Web.Helpers.Controller_Helpers
             {
                 controller.ViewData[messageTypeKey] = message;
             }
+        }
+
+        public static void ShowTab(this Controller controller)
+        {
+            string tabClass = "active";
+            controller.ViewBag.TabClass = tabClass;
         }
     }
 }

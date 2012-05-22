@@ -1,80 +1,175 @@
-﻿@model PropertyManage.Web.UserModel
+﻿@model PropertyManage.Web.EditUserModel
 <div id="edit-user">
-    <div class="title">
-        <h1>User.</h1>
-        <h2>Use the form below to edit a user.</h2>
-    </div>
-    <p class="message-info">
-        Passwords are required to be a minimum of @Membership.MinRequiredPasswordLength
-        characters in length.
-    </p>
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary(true)
-        <fieldset>
-            <ol>
-                <li>
-                    @Html.LabelFor(m => m.UserName)
-                    @Html.DisplayFor(m => m.UserName)
-                    @Html.HiddenFor(m => m.UserName)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.Email)
-                    @Html.EditorFor(m => m.Email)
-                    @Html.ValidationMessageFor(m => m.Email)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.OldPassword)
-                    @Html.PasswordFor(m => m.OldPassword)
-                    @Html.ValidationMessageFor(m => m.OldPassword)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.NewPassword)
-                    @Html.PasswordFor(m => m.NewPassword)
-                    @Html.ValidationMessageFor(m => m.NewPassword)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.ConfirmPassword)
-                    @Html.PasswordFor(m => m.ConfirmPassword)
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.Comment)
-                    @Html.TextAreaFor(m => m.Comment)
-                    @Html.ValidationMessageFor(m => m.Comment)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.IsApproved)
-                    @Html.CheckBoxFor(m => m.IsApproved)
-                    @Html.ValidationMessageFor(m => m.IsApproved)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.DateCreated)
-                    @Html.DisplayFor(m => m.DateCreated)
-                    @Html.HiddenFor(m => m.DateCreated)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.DateLastLogin)
-                    @Html.DisplayFor(m => m.DateLastLogin)
-                    @Html.HiddenFor(m => m.DateLastLogin)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.DateLastActivity)
-                    @Html.DisplayFor(m => m.DateLastActivity)
-                    @Html.HiddenFor(m => m.DateLastActivity)
-                </li>
-                <li>
-                    @Html.LabelFor(m => m.DateLastPasswordChange)
-                    @Html.DisplayFor(m => m.DateLastPasswordChange)
-                    @Html.HiddenFor(m => m.DateLastPasswordChange)
-                </li>
-            </ol>
-            <p>
-                <input type="submit" value="Edit" />
-                | @Html.ActionLink("Cencel", "Index")
-            </p>
-        </fieldset>
-    }
-    <div>
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <h2>
+                    Edit user
+                </h2>
+            </div>
+            <div class="box-wrap clear">
+                <div class="form bt-space15">
+                    @using (Html.BeginForm("Edit", "User"))
+                    {
+                        @Html.ValidationSummary(true, "User creation was unsuccessful. Please correct the errors and try again.")
+                        <div class="notification note-info">
+                            <p>
+                                <strong>Information : </strong>Passwords are required to be a minimum of @Membership.MinRequiredPasswordLength
+                                characters in length.
+                            </p>
+                        </div>
+                        <div class="columns clear bt-space15">
+                            <h4>
+                                Primary Information:</h4>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.UserName)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextBoxFor(m => m.UserName)
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.Email)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextBoxFor(m => m.Email)
+                                    @Html.ValidationMessageFor(m => m.Email)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.OldPassword)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.PasswordFor(m => m.OldPassword)
+                                    @Html.ValidationMessageFor(m => m.OldPassword)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.NewPassword)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.PasswordFor(m => m.NewPassword)
+                                    @Html.ValidationMessageFor(m => m.NewPassword)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.ConfirmPassword)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.PasswordFor(m => m.ConfirmPassword)
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rule">
+                        </div>
+                        <div class="columns clear bt-space15">
+                            <h4>
+                                Secondary Information:</h4>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.FirstName)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextBoxFor(m => m.FirstName)
+                                    @Html.ValidationMessageFor(m => m.FirstName)
+                                </div>
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.LastName)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextBoxFor(m => m.LastName)
+                                    @Html.ValidationMessageFor(m => m.LastName)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.DateOfBirth)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "appDateTimePicker" })
+                                    @Html.ValidationMessageFor(m => m.DateOfBirth)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.Address)
+                                </div>
+                                <div class="form-textarea fl-space2">
+                                    @Html.TextAreaFor(m => m.Address)
+                                    @Html.ValidationMessageFor(m => m.Address)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.PhoneNumber)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextBoxFor(m => m.PhoneNumber)
+                                    @Html.ValidationMessageFor(m => m.PhoneNumber)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.MobileNumber)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextBoxFor(m => m.MobileNumber)
+                                    @Html.ValidationMessageFor(m => m.MobileNumber)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.ThumbImageUrl)
+                                </div>
+                                <div class="text fl-space2">
+                                    <input type="file" name="ThumbImageUrl" value="" />
+                                    @Html.ValidationMessageFor(m => m.ThumbImageUrl)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rule">
+                        </div>
+                        <div class="columns clear bt-space15">
+                            <h4>
+                                Application Privilege:</h4>
+                            <div class="clear">
+                                @if (Model.AppPrivilegeModels.Count() != 0)
+                                {
+                                    foreach (var item in Model.AppPrivilegeModels.ToList())
+                                    {
+                                    
+                                    <div class="form-checkbox-item">
+                                        <input class="checkbox fl-space" type="checkbox" id="usr-@item.PrivilegeName" 
+                                         name="privilegeName" 
+                                         value="@item.PrivilegeName" @(Html.Raw(item.Assigned ? "checked=\"checked\"" : ""))  />
+                                        <label class="fl chkbox-label" for="usr-@item.PrivilegeName">@item.PrivilegeName</label>
+                                    </div>
+                                  
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="claer no-data">
+                                        Nothing found - Sorry</div> 
+                                }
+                            </div>
+                        </div>
+                        <div class="rule2">
+                        </div>
+                        <div class="clear">
+                            <input class="button green" type="submit" value="Edit" />
+                            | @Html.ActionLink("Cencel", "Index")
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -9,17 +9,21 @@ using PropertyManage.Web;
 using PropertyManage.Service;
 using PropertyManage.Domain;
 using System.Web.Security;
-using PropertyManage.Web;
+using PropertyManage.Web.Helpers;
 
 namespace PropertyManage.Web.Controllers
 {
+    //[Authorize]
+    //[System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class UserController : Controller
     {
         private readonly ISecurityService _securityService;
+        private readonly IProfileService _profileService;
 
-        public UserController(ISecurityService securityService)
+        public UserController(ISecurityService securityService, IProfileService profileService)
         {
             this._securityService = securityService;
+            this._profileService = profileService;
         }
 
         //
@@ -27,6 +31,8 @@ namespace PropertyManage.Web.Controllers
 
         public ActionResult Index()
         {
+            this.ShowTitle("User Management");
+            this.ShowBreadcrumb("User", "Index");
             return View();
         }
 
@@ -34,21 +40,24 @@ namespace PropertyManage.Web.Controllers
         public ActionResult GetUsers(DataTableParamModel param)
         {
             var users = _securityService.GetUsers().ToList();
-            IEnumerable<User> filteredUsers;
+
+            var viewUsers = users.Select(u => new UserTableModels() { UserName = u.UserName, Email = u.Email, FullName = u.Profile == null ? null : Convert.ToString(u.Profile.FullName), Address = u.Profile == null ? null : Convert.ToString(u.Profile.Address), Phone = u.Profile == null ? null : Convert.ToString(u.Profile.PhoneNumber), Mobile = u.Profile == null ? null : Convert.ToString(u.Profile.MobileNumber), CreateDate = u.Profile == null ? null : Convert.ToString(u.DateCreated) });
+
+            IEnumerable<UserTableModels> filteredUsers;
 
             if (!string.IsNullOrEmpty(param.sSearch))
             {
-                filteredUsers = users.Where(usr => usr.UserName.Contains(param.sSearch)).ToList();
+                filteredUsers = viewUsers.Where(usr => (usr.UserName ?? "").Contains(param.sSearch) || (usr.FullName ?? "").Contains(param.sSearch)).ToList();
             }
             else
             {
-                filteredUsers = users;
+                filteredUsers = viewUsers;
             }
 
             var viewOdjects = filteredUsers.Skip(param.iDisplayStart).Take(param.iDisplayLength);
 
             var result = from usrMdl in viewOdjects
-                         select new[] { Convert.ToString(usrMdl.UserName), Convert.ToString(usrMdl.UserName), Convert.ToString(usrMdl.Email), usrMdl.IsApproved == true ? "yes" : "no", Convert.ToString(usrMdl.DateCreated.ToShortDateString()), usrMdl.DateLastLogin == null ? null : Convert.ToString(usrMdl.DateLastLogin.Value.ToShortDateString()), usrMdl.DateLastActivity == null ? null : Convert.ToString(usrMdl.DateLastActivity.Value.ToShortDateString()), Convert.ToString(usrMdl.DateLastPasswordChange.ToShortDateString()) };
+                         select new[] { usrMdl.UserName, usrMdl.UserName, usrMdl.Email, usrMdl.FullName, usrMdl.Address, usrMdl.Phone, usrMdl.Mobile, usrMdl.CreateDate };
 
             return Json(new
             {
@@ -66,19 +75,61 @@ namespace PropertyManage.Web.Controllers
 
         public ActionResult Details(string id = null)
         {
+            this.ShowTitle("User Management");
+            this.ShowBreadcrumb("User", "Details");
+
             if (!string.IsNullOrEmpty(id))
             {
+                var roles = _securityService.GetRoles().ToList();
+
+                var appPrivilegeModels = roles.Count() == 0 ? null : (roles.Select(role => new AppPrivilegeModel
+                                                                                                    {
+                                                                                                        PrivilegeName = role.Users.Where(x => x.UserName.ToLower() == id.ToLower()).Count() == 0 ? null : role.RoleName,
+                                                                                                    }).ToList());
+
                 User user = _securityService.GetUser(id);
+
+                Profile profile = _profileService.GetProfiles().Where(x => x.UserName.ToLower() == id.ToLower()).FirstOrDefault();
 
                 if (user == null)
                 {
-                    return HttpNotFound();
+                    this.ShowMessage("Sorry! Data not found. You've been redirected to the default page instead.", MessageType.Error);
+                    return RedirectToAction("Index");
                 }
 
-                //return View("_Details", user);
-                return View(user);
+                CreateUserModel viewUserModel = new CreateUserModel();
+
+                if (profile == null)
+                {
+                    viewUserModel.UserName = user.UserName;
+                    viewUserModel.Email = user.Email;
+                    viewUserModel.Password = null;
+                    viewUserModel.ConfirmPassword = null;
+                }
+                else
+                {
+                    viewUserModel.UserName = user.UserName;
+                    viewUserModel.Email = user.Email;
+                    viewUserModel.Password = null;
+                    viewUserModel.ConfirmPassword = null;
+                    viewUserModel.FirstName = profile.FirstName;
+                    viewUserModel.LastName = profile.LastName;
+                    viewUserModel.SurName = profile.SurName;
+                    viewUserModel.DateOfBirth = profile.DateOfBirth == null ? null : profile.DateOfBirth.Value.ToString("MM/dd/yyyy");
+                    viewUserModel.Address = profile.Address;
+                    viewUserModel.PhoneNumber = profile.PhoneNumber;
+                    viewUserModel.MobileNumber = profile.MobileNumber;
+                    viewUserModel.ThumbImageUrl = profile.ThumbImageUrl;
+                    viewUserModel.SmallImageUrl = profile.SmallImageUrl;
+                }
+
+                viewUserModel.AppPrivilegeModels = appPrivilegeModels;
+
+                //return View("_Details", viewUserModel);
+                return View(viewUserModel);
             }
-            return HttpNotFound();
+            this.ShowMessage("Sorry! Data not found. You've been redirected to the default page instead.", MessageType.Error);
+            return RedirectToAction("Index");
         }
 
         //
@@ -86,16 +137,42 @@ namespace PropertyManage.Web.Controllers
 
         public ActionResult Create()
         {
-            //return PartialView("_Create");
-            return View();
+            this.ShowTitle("User Management");
+            this.ShowBreadcrumb("User", "Create");
+
+            var roles = _securityService.GetRoles().ToList();
+
+            CreateUserModel createUserModel = new CreateUserModel();
+
+            var appPrivilegeModels = roles.Count() == 0 ? null : (roles.Select(role => new AppPrivilegeModel
+                                                                                            {
+                                                                                                PrivilegeName = role.RoleName
+                                                                                            }).ToList());
+
+            createUserModel.AppPrivilegeModels = appPrivilegeModels;
+
+            //return PartialView("_Create", appUserModel);
+            return View(createUserModel);
         }
 
         //
-        // POST: /User/Create/ by object
+        // POST: /User/Create/by object
 
         [HttpPost]
-        public ActionResult Create(RegisterModel model)
+        public ActionResult Create(CreateUserModel model, string[] privilegeName)
         {
+            this.ShowTitle("User Management");
+            this.ShowBreadcrumb("User", "Create");
+
+            var roles = _securityService.GetRoles().ToList();
+
+            var appPrivilegeModels = roles.Count() == 0 ? null : (roles.Select(role => new AppPrivilegeModel
+                                                                                            {
+                                                                                                PrivilegeName = role.RoleName
+                                                                                            }).ToList());
+
+            model.AppPrivilegeModels = appPrivilegeModels;
+
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
@@ -104,8 +181,51 @@ namespace PropertyManage.Web.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, createPersistentCookie: false);
-                    return RedirectToAction("Index");
+
+                    User user = _securityService.GetUser(model.UserName);
+
+                    if (user != null)
+                    {
+                        Profile profile = new Profile
+                        {
+                            FirstName = model.FirstName,
+                            LastName = model.LastName,
+                            SurName = model.SurName,
+                            Address = model.Address,
+                            DateOfBirth = Convert.ToDateTime(model.DateOfBirth),
+                            MobileNumber = model.MobileNumber,
+                            PhoneNumber = model.PhoneNumber,
+                            ThumbImageUrl = model.ThumbImageUrl,
+                            SmallImageUrl = model.SmallImageUrl,
+                            UserName = model.UserName
+                        };
+
+                        //Profile create for user
+                        _profileService.CreateProfile(profile);
+
+                        var selectRoles = roles;
+
+                        var lstRoles = new List<Role>();
+
+                        foreach (var roleName in privilegeName)
+                        {
+                            string id = roleName;
+                            lstRoles.Add(selectRoles.Where(x => x.RoleName == id).FirstOrDefault());
+                        }
+
+                        user.Roles = lstRoles;
+                        user.Profile = profile;
+
+                        //User Update
+                        _securityService.UpdateUser(user);
+                        this.ShowMessage("User created successfully", MessageType.Success);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "The user is invalid.");
+                    }
+
                 }
                 else
                 {
@@ -119,49 +239,92 @@ namespace PropertyManage.Web.Controllers
         }
 
         //
-        // GET: /User/Edit/5
+        // GET: /User/Edit/by id
 
         public ActionResult Edit(string id = null)
         {
+            this.ShowTitle("User Management");
+            this.ShowBreadcrumb("User", "Edit");
+
             if (!string.IsNullOrEmpty(id))
             {
+                var roles = _securityService.GetRoles().ToList();
+
+                var appPrivilegeModels = roles.Count() == 0 ? null : (roles.Select(role => new AppPrivilegeModel
+                                                                                                {
+                                                                                                    PrivilegeName = role.RoleName,
+                                                                                                    Assigned = role.Users.Where(x => x.UserName.ToLower() == id.ToLower()).Count() == 0 ? false : true
+                                                                                                }).ToList());
+
                 User user = _securityService.GetUser(id);
 
-                UserModel userModel = new UserModel()
-                {
-                    UserName = user.UserName,
-                    Email = user.Email,
-                    OldPassword = null,
-                    NewPassword = null,
-                    ConfirmPassword = null,
-                    Comment = user.Comment,
-                    IsApproved = user.IsApproved,
-                    DateCreated = user.DateCreated,
-                    DateLastLogin = user.DateLastLogin,
-                    DateLastActivity = user.DateLastActivity,
-                    DateLastPasswordChange = user.DateLastPasswordChange
-                };
-
+                Profile profile = _profileService.GetProfiles().Where(x => x.UserName.ToLower() == id.ToLower()).FirstOrDefault();
 
                 if (user == null)
                 {
-                    return HttpNotFound();
+                    this.ShowMessage("Sorry! Data not found. You've been redirected to the default page instead.", MessageType.Error);
+                    return RedirectToAction("Index");
                 }
-                //return PartialView("_Edit", userModel);
-                return View(userModel);
+
+                EditUserModel editUserModel = new EditUserModel();
+
+                if (profile == null)
+                {
+                    editUserModel.UserName = user.UserName;
+                    editUserModel.Email = user.Email;
+                    editUserModel.OldPassword = null;
+                    editUserModel.NewPassword = null;
+                    editUserModel.ConfirmPassword = null;
+
+                }
+                else
+                {
+                    editUserModel.UserName = user.UserName;
+                    editUserModel.Email = user.Email;
+                    editUserModel.OldPassword = null;
+                    editUserModel.NewPassword = null;
+                    editUserModel.ConfirmPassword = null;
+                    editUserModel.FirstName = profile.FirstName;
+                    editUserModel.LastName = profile.LastName;
+                    editUserModel.SurName = profile.SurName;
+                    editUserModel.DateOfBirth = profile.DateOfBirth == null ? null : profile.DateOfBirth.Value.ToString("MM/dd/yyyy");
+                    editUserModel.Address = profile.Address;
+                    editUserModel.PhoneNumber = profile.PhoneNumber;
+                    editUserModel.MobileNumber = profile.MobileNumber;
+                    editUserModel.ThumbImageUrl = profile.ThumbImageUrl;
+                    editUserModel.SmallImageUrl = profile.SmallImageUrl;
+                }
+
+                editUserModel.AppPrivilegeModels = appPrivilegeModels;
+
+                //return PartialView("_Edit", editUserModel);
+                return View(editUserModel);
             }
-            return HttpNotFound();
+            this.ShowMessage("Sorry! Data not found. You've been redirected to the default page instead.", MessageType.Error);
+            return RedirectToAction("Index");
         }
 
         //
-        // POST: /User/Edit/5
+        // POST: /User/Edit/by object
 
         [HttpPost]
-        public ActionResult Edit(UserModel model)
+        public ActionResult Edit(EditUserModel model, string[] privilegeName)
         {
+            this.ShowTitle("User Management");
+            this.ShowBreadcrumb("User", "Edit");
+
+            var roles = _securityService.GetRoles().ToList();
+
+            var appPrivilegeModels = roles.Count() == 0 ? null : (roles.Select(role => new AppPrivilegeModel
+                                                                                                {
+                                                                                                    PrivilegeName = role.RoleName,
+                                                                                                    Assigned = role.Users.Where(x => x.UserName.ToLower() == model.UserName.ToLower()).Count() == 0 ? false : true
+                                                                                                }).ToList());
+
+            model.AppPrivilegeModels = appPrivilegeModels;
+
             if (ModelState.IsValid)
             {
-
                 User user = _securityService.GetUser(model.UserName);
 
                 if (user != null)
@@ -172,7 +335,7 @@ namespace PropertyManage.Web.Controllers
                     {
                         try
                         {
-                            MembershipUser currentUser = Membership.GetUser(User.Identity.Name, userIsOnline: true);
+                            MembershipUser currentUser = Membership.GetUser(model.UserName, userIsOnline: true);
                             changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
                         }
                         catch (Exception)
@@ -189,16 +352,60 @@ namespace PropertyManage.Web.Controllers
                     {
                         try
                         {
-                            user.Email = model.Email;
-                            user.Comment = model.Comment;
+                            var selectRoles = roles;
 
-                            user.IsApproved = model.IsApproved;
-                            user.DateCreated = model.DateCreated;
-                            user.DateLastLogin = model.DateLastLogin;
-                            user.DateLastActivity = model.DateLastActivity;
-                            user.DateLastPasswordChange = model.DateLastPasswordChange;
+                            var lstRoles = new List<Role>();
+
+                            foreach (var roleName in privilegeName)
+                            {
+                                string id = roleName;
+                                lstRoles.Add(selectRoles.Where(x => x.RoleName == id).FirstOrDefault());
+                            }
+
+                            user.Roles = lstRoles;
+
+                            Profile profile = _profileService.GetProfiles().Where(x => x.UserName.ToLower() == model.UserName.ToLower()).FirstOrDefault();
+
+                            if (profile != null)
+                            {
+                                profile.FirstName = model.FirstName;
+                                profile.LastName = model.LastName;
+                                profile.SurName = model.SurName;
+                                profile.Address = model.Address;
+                                profile.DateOfBirth = Convert.ToDateTime(model.DateOfBirth);
+                                profile.MobileNumber = model.MobileNumber;
+                                profile.PhoneNumber = model.PhoneNumber;
+                                profile.ThumbImageUrl = model.ThumbImageUrl;
+                                profile.SmallImageUrl = model.SmallImageUrl;
+                                profile.UserName = model.UserName;
+
+                                _profileService.UpdateProfile(profile);
+
+                                user.Profile = profile;
+                            }
+                            else
+                            {
+                                Profile tempProfile = new Profile
+                                {
+                                    FirstName = model.FirstName,
+                                    LastName = model.LastName,
+                                    SurName = model.SurName,
+                                    Address = model.Address,
+                                    DateOfBirth = Convert.ToDateTime(model.DateOfBirth),
+                                    MobileNumber = model.MobileNumber,
+                                    PhoneNumber = model.PhoneNumber,
+                                    ThumbImageUrl = model.ThumbImageUrl,
+                                    SmallImageUrl = model.SmallImageUrl,
+                                    UserName = model.UserName
+                                };
+
+                                _profileService.CreateProfile(tempProfile);
+
+                                user.Profile = tempProfile;
+                            }
 
                             _securityService.UpdateUser(user);
+                            this.ShowMessage("User updated successfully", MessageType.Success);
                             return RedirectToAction("Index");
                         }
                         catch (Exception)
@@ -223,17 +430,61 @@ namespace PropertyManage.Web.Controllers
 
         public ActionResult Delete(string id = null)
         {
+            this.ShowTitle("User Management");
+            this.ShowBreadcrumb("User", "Delete");
+
             if (!string.IsNullOrEmpty(id))
             {
+                var roles = _securityService.GetRoles().ToList();
+
+                var appPrivilegeModels = roles.Count() == 0 ? null : (roles.Select(role => new AppPrivilegeModel
+                                                                                                {
+                                                                                                    PrivilegeName = role.Users.Where(x => x.UserName.ToLower() == id.ToLower()).Count() == 0 ? null : role.RoleName,
+                                                                                                }).ToList());
+
                 User user = _securityService.GetUser(id);
+
+                Profile profile = _profileService.GetProfiles().Where(x => x.UserName.ToLower() == id.ToLower()).FirstOrDefault();
+
                 if (user == null)
                 {
-                    return HttpNotFound();
+                    this.ShowMessage("Sorry! Data not found. You've been redirected to the default page instead.", MessageType.Error);
+                    return RedirectToAction("Index");
                 }
-                //return PartialView("_Delete", user);
-                return View(user);
+
+                CreateUserModel viewUserModel = new CreateUserModel();
+
+                if (profile == null)
+                {
+                    viewUserModel.UserName = user.UserName;
+                    viewUserModel.Email = user.Email;
+                    viewUserModel.Password = null;
+                    viewUserModel.ConfirmPassword = null;
+                }
+                else
+                {
+                    viewUserModel.UserName = user.UserName;
+                    viewUserModel.Email = user.Email;
+                    viewUserModel.Password = null;
+                    viewUserModel.ConfirmPassword = null;
+                    viewUserModel.FirstName = profile.FirstName;
+                    viewUserModel.LastName = profile.LastName;
+                    viewUserModel.SurName = profile.SurName;
+                    viewUserModel.DateOfBirth = profile.DateOfBirth == null ? null : profile.DateOfBirth.Value.ToString("MM/dd/yyyy");
+                    viewUserModel.Address = profile.Address;
+                    viewUserModel.PhoneNumber = profile.PhoneNumber;
+                    viewUserModel.MobileNumber = profile.MobileNumber;
+                    viewUserModel.ThumbImageUrl = profile.ThumbImageUrl;
+                    viewUserModel.SmallImageUrl = profile.SmallImageUrl;
+                }
+
+                viewUserModel.AppPrivilegeModels = appPrivilegeModels;
+
+                //return PartialView("_Delete", viewUserModel);
+                return View(viewUserModel);
             }
-            return HttpNotFound();
+            this.ShowMessage("Sorry! Data not found. You've been redirected to the default page instead.", MessageType.Error);
+            return RedirectToAction("Index");
         }
 
         //
@@ -242,6 +493,9 @@ namespace PropertyManage.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(string id)
         {
+            this.ShowTitle("User Management");
+            this.ShowBreadcrumb("User", "Delete");
+
             if (!string.IsNullOrEmpty(id))
             {
                 try
@@ -251,23 +505,27 @@ namespace PropertyManage.Web.Controllers
                     if (user != null)
                     {
                         _securityService.DeleteUser(user.UserName);
-
+                        this.ShowMessage("User deleted successfully", MessageType.Success);
                         return RedirectToAction("Index");
                     }
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //throw;
+                    this.ShowMessage("Error on data generation with the following details " + ex.Message, MessageType.Error);
                 }
 
             }
 
-            return HttpNotFound();
+            this.ShowMessage("Sorry! Data not found. You've been redirected to the default page instead.", MessageType.Error);
+            return RedirectToAction("Index");
         }
 
-        public ActionResult AssignRole(string id)
+        public ActionResult Privilege(string id)
         {
+            this.ShowTitle("User Management");
+            this.ShowBreadcrumb("User", "Privilege");
+
             if (!string.IsNullOrEmpty(id))
             {
                 string userName = id;
@@ -279,26 +537,42 @@ namespace PropertyManage.Web.Controllers
                     return HttpNotFound();
                 }
 
-                UserRoleModel userRoleModel = new UserRoleModel { UserName = userName };
+                CreateUserModel createUserModel = new CreateUserModel { UserName = userName };
 
-                var assignRoleModels = roles.Count() == 0 ? null : (roles.Select(role => new AssignRoleModel
-                {
-                    RoleName = role.RoleName,
-                    Assigned = role.Users.Where(x => x.UserName == userName).Count() == 0 ? false : true
-                }).ToList());
+                var appPrivilegeModels = roles.Count() == 0 ? null : (roles.Select(role => new AppPrivilegeModel
+                                                                                                {
+                                                                                                    PrivilegeName = role.RoleName,
+                                                                                                    Assigned = role.Users.Where(x => x.UserName == userName).Count() == 0 ? false : true
+                                                                                                }).ToList());
 
-                userRoleModel.AssignRoleModels = assignRoleModels;
+                createUserModel.AppPrivilegeModels = appPrivilegeModels;
 
-                //return PartialView("_AssignRole", userRoleModel);
-                //return View("_AssignRole", userRoleModel);))
-                return View(userRoleModel);
+                //return PartialView("_Privilege", createUserModel);
+                //return View("_Privilege", createUserModel);))
+                return View(createUserModel);
             }
-            return HttpNotFound();
+            this.ShowMessage("Sorry! Data not found. You've been redirected to the default page instead.", MessageType.Error);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult AssignRole(string userName, string[] roleName)
+        public ActionResult Privilege(string userName, string[] privilegeName)
         {
+            this.ShowTitle("User Management");
+            this.ShowBreadcrumb("User", "Privilege");
+
+            var tempRoles = _securityService.GetRoles().ToList();
+
+            CreateUserModel createUserModel = new CreateUserModel { UserName = userName };
+
+            var appPrivilegeModels = tempRoles.Count() == 0 ? null : (tempRoles.Select(role => new AppPrivilegeModel
+                                                                                                {
+                                                                                                    PrivilegeName = role.RoleName,
+                                                                                                    Assigned = role.Users.Where(x => x.UserName == userName).Count() == 0 ? false : true
+                                                                                                }).ToList());
+
+            createUserModel.AppPrivilegeModels = appPrivilegeModels;
+
             if (!string.IsNullOrEmpty(userName))
             {
                 User user = _securityService.GetUser(userName);
@@ -309,37 +583,40 @@ namespace PropertyManage.Web.Controllers
                     {
                         List<string> roles = new List<string>();
 
-                        foreach (var item in roleName)
+                        foreach (var item in privilegeName)
                         {
                             roles.Add(item);
                         }
 
                         _securityService.AddUserToRole(user.UserName, roles);
+                        this.ShowMessage("User privilege seted successfully", MessageType.Success);
                         return RedirectToAction("Index");
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        //throw;
+                        this.ShowMessage("Error on data generation with the following details " + ex.Message, MessageType.Error);
                     }
                 }
             }
-            //return PartialView("_AssignRole");
-            return View();
+            //return PartialView("_Privilege", createUserModel);
+            return View(createUserModel);
         }
 
-        public PartialViewResult UsrRoles(string usrId)
+        public PartialViewResult UserRoles(string usrId)
         {
             string userName = usrId;
 
-            var roles = _securityService.GetRoles().ToList();
+            var user = _securityService.GetUser(userName);
 
-            var assignRoleModels = roles.Count() == 0 ? null : (roles.Select(role => new AssignRoleModel
-            {
-                RoleName = role.RoleName,
-                Assigned = role.Users.Where(x => x.UserName == userName).Count() == 0 ? false : true
-            }).ToList());
+            var selectUsers = user.Roles.ToList();
 
-            return PartialView("_UsrRoles", assignRoleModels);
+            IEnumerable<AppPrivilegeModel> appPrivilegeModels = selectUsers.Count() == 0 ? null : (selectUsers.Select(role => new AppPrivilegeModel
+                                                                                                {
+                                                                                                    PrivilegeName = role.RoleName
+                                                                                                }).ToList());
+
+
+            return PartialView("_UserRoles", appPrivilegeModels);
         }
 
 

@@ -15,6 +15,20 @@ namespace PropertyManage.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<Profile> Profiles { get; set; }
 
+        // Setting tables
+        public DbSet<UnitType> UnitTypes { get; set; }
+        public DbSet<UnitValue> UnitValues { get; set; }
+
+        // Project tables
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectBlock> ProjectBlocks { get; set; }
+        public DbSet<BlockPlot> BlockPlots { get; set; }
+
+        // Purchase tables
+        public DbSet<Category> Categorys { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Maps to the expected many-to-many join table name for roles to users.
@@ -27,6 +41,19 @@ namespace PropertyManage.Data
                 m.MapLeftKey("UserName");
                 m.MapRightKey("RoleName");
             });
+
+            //one to one relationship with user mapping
+            modelBuilder.Entity<User>()
+            .HasOptional(u => u.Profile)
+            .WithMany()
+            .HasForeignKey(u => u.ProfileId);
+
+            //one to one relationship with profile mapping
+            modelBuilder.Entity<Profile>()
+            .HasRequired(u => u.User)
+            .WithMany()
+            .HasForeignKey(u => u.UserName);
+
         }
 
     }
@@ -58,20 +85,25 @@ namespace PropertyManage.Data
             // Create default roles.
             var roles = new List<Role>
                             {
-                                new Role {RoleName = "Super Administrator"},
-                                new Role {RoleName = "Administrator"},
+                                new Role {RoleName = "Admin"},
+                                new Role {RoleName = "Account"},
+                                new Role {RoleName = "Client"},
+                                new Role {RoleName = "Manage"},
+                                new Role {RoleName = "Purchase"},
+                                new Role {RoleName = "Sale"},
+                                new Role {RoleName = "Supliare"},
                                 new Role {RoleName = "User"}
                             };
 
             roles.ForEach(r => context.Roles.Add(r));
 
             // Create some users.
-            CreateUserWithRole("Faruk", "@123456", "faruk@syntechbd.com", "Super Administrator", context);
-            CreateUserWithRole("Siddik", "@123456", "siddik@syntechbd.com", "Administrator", context);
+            CreateUserWithRole("Faruk", "@123456", "faruk@syntechbd.com", "Admin", context);
+            CreateUserWithRole("Ahmmed", "@123456", "ahmmed@syntechbd.com", "Account", context);
             CreateUserWithRole("Rasel", "@123456", "rasel@syntechbd.com", "User", context);
-            CreateUserWithRole("Nur", "@123456", "nur@syntechbd.com", "User", context);
-            CreateUserWithRole("Asraf", "@123456", "asraf@syntechbd.com", "User", context);
-            CreateUserWithRole("sunchoy", "@123456", "sojoy@syntechbd.com", "User", context);
+            CreateUserWithRole("Nur", "@123456", "nur@syntechbd.com", "Sale", context);
+            CreateUserWithRole("Asraf", "@123456", "asraf@syntechbd.com", "Supliare", context);
+            CreateUserWithRole("sunchoy", "@123456", "sunchoy@syntechbd.com", "Client", context);
 
 
             // will add more testdata soon

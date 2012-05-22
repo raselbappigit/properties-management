@@ -1,0 +1,31 @@
+﻿@model PropertyManage.Domain.Category
+<div id="detail-catg-type">
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <h2>
+                    Deatails Land Type
+                </h2>
+            </div>
+            <div class="box-wrap clear">
+                <div class="form bt-space15">
+                    <div class="columns clear bt-space15">
+                        <div class="form-field clear">
+                            <div class="form-label size-120 fl-space2">
+                                @Html.LabelFor(m => m.Name)
+                            </div>
+                            <div class="text fl-space2">
+                                @Html.DisplayFor(m => m.Name)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rule2">
+                    </div>
+                    <div class="clear">
+                        @Html.ActionLink("Back to list", "Index")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

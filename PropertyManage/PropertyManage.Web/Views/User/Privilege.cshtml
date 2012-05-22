@@ -1,0 +1,51 @@
+﻿@model PropertyManage.Web.CreateUserModel
+<div id="privilege-user">
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <h2>
+                    Set privilege
+                </h2>
+            </div>
+            <div class="box-wrap clear">
+                <div class="form bt-space15">
+                    @using (Html.BeginForm("Privilege", "User"))
+                    {
+                        <input type="hidden" name="userName" value="@Model.UserName" />
+                        <div class="columns clear bt-space15">
+                            <h4>
+                                Application Privilege:</h4>
+                            <div class="clear">
+                                @if (Model.AppPrivilegeModels.Count() != 0)
+                                {
+                                    foreach (var item in Model.AppPrivilegeModels.ToList())
+                                    {
+                                    
+                                    <div class="form-checkbox-item">
+                                        <input class="checkbox fl-space" type="checkbox" id="usr-@item.PrivilegeName" 
+                                         name="privilegeName" 
+                                         value="@item.PrivilegeName" @(Html.Raw(item.Assigned ? "checked=\"checked\"" : ""))  />
+                                        <label class="fl chkbox-label" for="usr-@item.PrivilegeName">@item.PrivilegeName</label>
+                                    </div>
+                                  
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="claer no-data">
+                                        Nothing found - Sorry</div> 
+                                }
+                            </div>
+                        </div>
+                        <div class="rule2">
+                        </div>
+                        <div class="clear">
+                            <input class="button green" type="submit" value="Set Privilege" />
+                            | @Html.ActionLink("Cencel", "Index")
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

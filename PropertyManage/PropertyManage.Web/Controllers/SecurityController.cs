@@ -12,6 +12,7 @@ namespace PropertyManage.Web.Controllers
 {
 
     [Authorize]
+    //[System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class SecurityController : Controller
     {
         private readonly ISecurityService _securityService;
@@ -67,6 +68,27 @@ namespace PropertyManage.Web.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
+
+            //1:for disable browser back button
+            //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+            //2:
+            //Response.Cache.SetExpires(DateTime.Now.AddSeconds(360));
+            //Response.Cache.SetCacheability(HttpCacheability.Private);
+            //Response.Cache.SetSlidingExpiration(true);
+
+            //3:
+            //Response.Buffer = true;
+            //Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
+            //Response.Expires = -1500;
+            //Response.CacheControl = "no-cache";
+
+            //4:
+            //HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+            //HttpContext.Current.Response.Cache.SetValidUntilExpires(false);
+            //HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+            //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //HttpContext.Current.Response.Cache.SetNoStore();
 
             return RedirectToAction("Index", "Home");
         }
@@ -195,7 +217,7 @@ namespace PropertyManage.Web.Controllers
 
             }
 
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "Security");
 
         }
 

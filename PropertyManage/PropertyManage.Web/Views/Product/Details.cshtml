@@ -1,0 +1,71 @@
+﻿@model PropertyManage.Domain.Product
+<div id="details-product-type">
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <h2>
+                    Details Land
+                </h2>
+            </div>
+            <div class="box-wrap clear">
+                <div class="form bt-space15">
+                    <div class="columns clear bt-space15">
+                        <div class="form-field clear">
+                            <div class="form-label size-120 fl-space2">
+                                @Html.LabelFor(m => m.Name)
+                            </div>
+                            <div class="text fl-space2">
+                                @Html.DisplayFor(m => m.Name)
+                            </div>
+                        </div>
+                        <div class="form-field clear">
+                            <div class="form-label size-120 fl-space2">
+                                @Html.LabelFor(m => m.MainCost)
+                            </div>
+                            <div class="text fl-space2">
+                                @Html.DisplayFor(m => m.MainCost)
+                            </div>
+                        </div>
+                        <div class="form-field clear">
+                            <div class="form-label size-120 fl-space2">
+                                @Html.LabelFor(m => m.OtherCost)
+                            </div>
+                            <div class="text fl-space2">
+                                @Html.DisplayFor(m => m.OtherCost)
+                            </div>
+                        </div>
+                        <div class="form-field clear">
+                            <div class="form-label size-120 fl-space2">
+                                @Html.LabelFor(m => m.Description)
+                            </div>
+                            <div class="text fl-space2">
+                                @Html.DisplayFor(m => m.Description)
+                            </div>
+                        </div>
+                        <div class="form-field clear">
+                            <div class="form-label size-120 fl-space2">
+                                @Html.LabelFor(m => m.CategoryId, "Category Name")
+                            </div>
+                            <div class="text fl-space2">
+                                @Html.DisplayFor(m => m.Category.Name)
+                            </div>
+                        </div>
+                        <div class="form-field clear">
+                            <div class="form-label size-120 fl-space2">
+                                @Html.LabelFor(m => m.ProjectId, "Project Name")
+                            </div>
+                            <div class="text fl-space2">
+                                @Html.DisplayFor(m => m.Project.Name)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rule2">
+                    </div>
+                    <div class="clear">
+                        @Html.ActionLink("Back to list", "Index")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

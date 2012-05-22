@@ -48,13 +48,20 @@
     <Compile Include="Entities\Membership\Profile.cs" />
     <Compile Include="Entities\Membership\Role.cs" />
     <Compile Include="Entities\Membership\User.cs" />
+    <Compile Include="Entities\PRM\Category.cs" />
+    <Compile Include="Entities\PRM\Product.cs" />
+    <Compile Include="Entities\PRM\Supplier.cs" />
+    <Compile Include="Entities\Project\Project.cs" />
+    <Compile Include="Entities\Project\ProjectBlock.cs" />
+    <Compile Include="Entities\Project\BlockPlot.cs" />
+    <Compile Include="Entities\Setting\UnitType.cs" />
+    <Compile Include="Entities\Setting\UnitValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\ARM\" />
     <Folder Include="Entities\CRM\" />
     <Folder Include="Entities\HRM\" />
-    <Folder Include="Entities\PRM\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

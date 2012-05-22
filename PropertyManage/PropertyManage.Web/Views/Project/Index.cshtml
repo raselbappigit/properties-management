@@ -1,0 +1,39 @@
+﻿<div id="project-list">
+    <h2>
+        Project management</h2>
+    <p>
+        @Html.ActionLink("Create Project", "Create", "Project", new { @class = "button" })
+    </p>
+    <div id="projects-data-table">
+        <table id="projDataTable" class="dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        Options
+                    </th>
+                    <th>
+                        Project Name
+                    </th>
+                    <th>
+                        Project Location
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Estimated Area
+                    </th>
+                    <th>
+                        Unit Value
+                    </th>
+                    <th>
+                        Create Date
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/App/project-jquery.js")" type="text/javascript"></script>

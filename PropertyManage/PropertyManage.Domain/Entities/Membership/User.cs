@@ -27,7 +27,9 @@ namespace PropertyManage.Domain
         [MaxLength(128)]
         public byte[] PasswordSalt { get; set; }
 
+        [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Email is required")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Invalid email address.")]
         [MaxLength(200)]
         public string Email { get; set; }
 
@@ -50,6 +52,10 @@ namespace PropertyManage.Domain
         public DateTime DateLastPasswordChange { get; set; }
 
         //public bool IsLoggedIn { get; set; }
+
+        //one to one relationship with profile
+        public int? ProfileId { get; set; }
+        public virtual Profile Profile { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }
     }

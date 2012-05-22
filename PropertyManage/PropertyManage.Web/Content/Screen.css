@@ -434,7 +434,7 @@ input.text			{ display: inline; border: 1px solid #B8B8B8; font-size: 12px; font
 input.submit			{ display: inline; border-width: 0px; font-size: 11px; font-family: arial; color: #FFFFFF; font-weight: bold; cursor: pointer; background: url('../images/button_glas1.png') center center repeat-x #333333; padding: 3px 10px 3px 10px; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; border-radius: 3px 3px 3px 3px;}
 input.form-file                 { display: inline; height: auto; font-size: 12px !important; }
 select				{ display: inline; border: 1px solid #B8B8B8; font-size: 12px; font-family: arial; color: #333333; height: 22px; padding: 2px; }
-textarea			{ display: inline; border: 1px solid #B8B8B8; font-size: 12px; font-family: arial; color: #333333; padding: 4px; }
+textarea			{ display: inline; border: 1px solid #B8B8B8; font-size: 12px; font-family: arial; color: #333333; padding: 4px; width:132px; }
 
 .form-label			{ display: block; width: 130px; }
 .form-field			{ padding-bottom: 5px; }

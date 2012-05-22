@@ -1,0 +1,72 @@
+﻿@model PropertyManage.Domain.Project
+<div id="add-project-type">
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <h2>
+                    Create Project
+                </h2>
+            </div>
+            <div class="box-wrap clear">
+                <div class="form bt-space15">
+                    @using (Html.BeginForm("Create", "Project"))
+                    {
+                        <div class="columns clear bt-space15">
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.Name)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextBoxFor(m => m.Name)
+                                    @Html.ValidationMessageFor(m => m.Name)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.Location)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextAreaFor(m => m.Location)
+                                    @Html.ValidationMessageFor(m => m.Location)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.Description)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextAreaFor(m => m.Description)
+                                    @Html.ValidationMessageFor(m => m.Description)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.EstimatedArea)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextBoxFor(m => m.EstimatedArea)
+                                    @Html.ValidationMessageFor(m => m.EstimatedArea)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.UnitValueId, "Unit Value")
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.DropDownListFor(m => m.UnitValueId, (IEnumerable<SelectListItem>)ViewBag.UnitValueId)
+                                    @Html.ValidationMessageFor(m => m.UnitValueId)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rule2">
+                        </div>
+                        <div class="clear">
+                            <input class="button green" type="submit" value="Create" />
+                            | @Html.ActionLink("Cencel", "Index")
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

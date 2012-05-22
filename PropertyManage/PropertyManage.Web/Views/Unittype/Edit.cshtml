@@ -1,0 +1,37 @@
+﻿@model PropertyManage.Domain.UnitType
+<div id="edit-unit-type">
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <h2>
+                    Edit Unit Of Type
+                </h2>
+            </div>
+            <div class="box-wrap clear">
+                <div class="form bt-space15">
+                    @using (Html.BeginForm("Edit", "Unittype"))
+                    {
+                        @Html.HiddenFor(m => m.UnitTypeId)
+                        <div class="columns clear bt-space15">
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.Name)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.TextBoxFor(m => m.Name)
+                                    @Html.ValidationMessageFor(m => m.Name)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rule2">
+                        </div>
+                        <div class="clear">
+                            <input class="button green" type="submit" value="Create" />
+                            | @Html.ActionLink("Cencel", "Index")
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -42,15 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PRM\CategoryService.cs" />
+    <Compile Include="PRM\ProductService.cs" />
+    <Compile Include="PRM\SupplierService.cs" />
+    <Compile Include="Project\ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ProfileService.cs" />
     <Compile Include="Security\SecurityService.cs" />
+    <Compile Include="Setting\UnitTypeService.cs" />
+    <Compile Include="Setting\UnitValueService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ARM\" />
     <Folder Include="CRM\" />
     <Folder Include="HRM\" />
-    <Folder Include="PRM\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PropertyManage.Data\PropertyManage.Data.csproj">

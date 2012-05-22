@@ -1,36 +1,36 @@
 ﻿<div id="user-list">
     <h2>
-        User List</h2>
+        User Management</h2>
     <p>
-        @Html.ActionLink("Create User", "Create", "User")
-        | @Html.ActionLink("Manage Role", "Index", "Role")
+        @Html.ActionLink("Create User", "Create", "User", new { @class = "button" })
     </p>
     <div id="users-data-table">
         <table id="userDataTable" class="dataTable">
             <thead>
                 <tr>
                     <th>
+                        Options
                     </th>
                     <th>
-                        Name
+                        User Name
                     </th>
                     <th>
                         Email
                     </th>
                     <th>
-                        IsApproved
+                        Full Name
                     </th>
                     <th>
-                        Created
+                        Address
                     </th>
                     <th>
-                        Last Login
+                        Phone Number
                     </th>
                     <th>
-                        Last Activity
+                        Mobile Number
                     </th>
                     <th>
-                        Last Password Change
+                        Create Date
                     </th>
                 </tr>
             </thead>
@@ -39,4 +39,4 @@
         </table>
     </div>
 </div>
-<script src="../../Scripts/App/user-data-tables.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/App/user-jquery.js")" type="text/javascript"></script>

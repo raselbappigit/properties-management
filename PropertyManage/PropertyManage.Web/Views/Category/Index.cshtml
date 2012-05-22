@@ -1,0 +1,24 @@
+﻿<div id="category-list">
+    <h2>
+        Land Type Management</h2>
+    <p>
+        @Html.ActionLink("Create Land Type", "Create", "Category", new { @class = "button" })
+    </p>
+    <div id="categorys-data-table">
+        <table id="catgDataTable" class="dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        Options
+                    </th>
+                    <th>
+                        Land Type
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/App/category-jquery.js")" type="text/javascript"></script>

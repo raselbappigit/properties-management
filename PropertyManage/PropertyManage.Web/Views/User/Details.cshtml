@@ -1,71 +1,132 @@
-﻿@model PropertyManage.Domain.User
-<div id="details-user">
-    <div class="title">
-     <h1>User.</h1>
-     <h2>@Model.UserName detail below.</h2>
-</div>
-    <fieldset>
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.UserName)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.UserName)
-        </div>
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.Email)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.Email)
-        </div>
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.Comment)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.Comment)
-        </div>
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.IsApproved)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.IsApproved)
-        </div>
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.DateCreated)
-        </div>
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.DateLastLogin)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.DateLastLogin)
-        </div>
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.DateLastActivity)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.DateLastActivity)
-        </div>
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.DateLastPasswordChange)
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.DateLastPasswordChange)
-        </div>
-        <div id="usr-role">
-            <div class="display-label">
-                Role Name
+﻿@model PropertyManage.Web.CreateUserModel
+<div id="detail-user">
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <h2>
+                    Detail user
+                </h2>
             </div>
-            @foreach (var usrRole in Model.Roles.ToList())
-            {
-                <div class="display-field">
-                    @Html.DisplayFor(model => usrRole.RoleName)
+            <div class="box-wrap clear">
+                <div class="form bt-space15">
+                    <div class="columns clear bt-space15">
+                        <h4>
+                            Primary Information:</h4>
+                        <div class="form-field clear">
+                            <div class="form-label size-120 fl-space2">
+                                @Html.LabelFor(m => m.UserName)
+                            </div>
+                            <div class="text fl-space2">
+                                @Html.DisplayFor(m => m.UserName)
+                            </div>
+                        </div>
+                        <div class="form-field clear">
+                            <div class="form-label size-120 fl-space2">
+                                @Html.LabelFor(m => m.Email)
+                            </div>
+                            <div class="text fl-space2">
+                                @Html.DisplayFor(m => m.Email)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rule">
+                    </div>
+                    <div class="columns clear bt-space15">
+                        <h4>
+                            Secondary Information:</h4>
+                        <div class="col2-3">
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.FirstName)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.DisplayFor(m => m.FirstName)
+                                </div>
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.LastName)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.DisplayFor(m => m.LastName)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.DateOfBirth)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.DisplayFor(m => m.DateOfBirth)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.Address)
+                                </div>
+                                <div class="form-textarea fl-space2">
+                                    @Html.DisplayFor(m => m.Address)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.PhoneNumber)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.DisplayFor(m => m.PhoneNumber)
+                                </div>
+                            </div>
+                            <div class="form-field clear">
+                                <div class="form-label size-120 fl-space2">
+                                    @Html.LabelFor(m => m.MobileNumber)
+                                </div>
+                                <div class="text fl-space2">
+                                    @Html.DisplayFor(m => m.MobileNumber)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col1-3 lastcol">
+                            <div class="gallery gal-large fr" style="width: 88px;">
+                                <div class="clear">
+                                    @if (Model.ThumbImageUrl != null)
+                                    { 
+                                        <img class="thumb" alt="" src="@Model.ThumbImageUrl"/>
+                                    }
+                                    else
+                                    {
+                                        <img class="thumb" alt="" src="../../Images/avatar.jpg" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rule">
+                    </div>
+                    <div class="columns clear bt-space15">
+                        <h4>
+                            Application Privilege:</h4>
+                        <div class="clear">
+                            @if (Model.AppPrivilegeModels.Count() != 0)
+                            {
+
+                                foreach (var item in Model.AppPrivilegeModels.ToList())
+                                {
+                                    
+                                <span class="fl-space2">
+                                    @item.PrivilegeName </span>
+                                  
+                                }
+                            }
+                            else
+                            {
+                                <span class="claer">Application privilege did not set.</span> 
+                            }
+                        </div>
+                    </div>
+                    <div class="rule2">
+                    </div>
+                    <div class="clear">
+                        @Html.ActionLink("Back to list", "Index")
+                    </div>
                 </div>
-            }
+            </div>
         </div>
-        <p>
-            @Html.ActionLink("Back to list", "Index")
-        </p>
-    </fieldset>
+    </div>
 </div>

@@ -1,0 +1,36 @@
+﻿<div id="supplier-list">
+    <h2>
+        Supplier management</h2>
+    <p>
+        @Html.ActionLink("Create Supplier", "Create", "Supplier", new { @class = "button" })
+    </p>
+    <div id="suppliers-data-table">
+        <table id="suppDataTable" class="dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        Options
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        Mobile
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Contact Person
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/App/supplier-jquery.js")" type="text/javascript"></script>

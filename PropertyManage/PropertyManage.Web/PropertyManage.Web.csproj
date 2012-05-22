@@ -134,8 +134,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\UnitvalueController.cs" />
+    <Compile Include="Controllers\UnittypeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -145,10 +153,13 @@
     <Compile Include="Models\DataTableParamModel.cs" />
     <Compile Include="Models\DomainModels.cs" />
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\fdfdContext.cs" />
+    <Compile Include="Models\ffdfdfContext.cs" />
+    <Compile Include="Models\ppppContext.cs" />
     <Compile Include="Models\SecurityModels.cs" />
-    <Compile Include="Models\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DomainViewModels.cs" />
+    <Compile Include="ViewModels\TableViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Reset.css" />
@@ -224,6 +235,7 @@
     <Content Include="Content\DataTables-1.9.1\media\images\sort_both.png" />
     <Content Include="Content\DataTables-1.9.1\media\images\sort_desc.png" />
     <Content Include="Content\DataTables-1.9.1\media\images\sort_desc_disabled.png" />
+    <Content Include="Content\Screen.Custom.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -253,8 +265,12 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\App\delete.png" />
+    <Content Include="Images\App\detail.png" />
     <Content Include="Images\App\details_close.png" />
     <Content Include="Images\App\details_open.png" />
+    <Content Include="Images\App\edit.png" />
+    <Content Include="Images\App\setting.png" />
     <Content Include="Images\arrowleft_iconbar_act.png" />
     <Content Include="Images\arrowright_iconbar_off.png" />
     <Content Include="Images\arrow_leftend_off.png" />
@@ -348,7 +364,14 @@
     <Content Include="Images\ui-icons_ffffff_256x240.png" />
     <Content Include="Images\user_female.png" />
     <Content Include="Images\user_male.png" />
-    <Content Include="Scripts\App\user-data-tables.js" />
+    <Content Include="Scripts\App\app-jquery.js" />
+    <Content Include="Scripts\App\category-jquery.js" />
+    <Content Include="Scripts\App\unit-type-jquery.js" />
+    <Content Include="Scripts\App\product-jquery.js" />
+    <Content Include="Scripts\App\supplier-jquery.js" />
+    <Content Include="Scripts\App\project-jquery.js" />
+    <Content Include="Scripts\App\unit-value-jquery.js" />
+    <Content Include="Scripts\App\user-jquery.js" />
     <Content Include="Scripts\DataTables-1.9.1\docs\media\js\doc.js" />
     <Content Include="Scripts\DataTables-1.9.1\docs\media\js\jquery.js" />
     <Content Include="Scripts\DataTables-1.9.1\docs\media\js\shBrushJScript.js" />
@@ -413,26 +436,12 @@
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Images\accent.png" />
-    <Content Include="Images\aspNetHome.png" />
-    <Content Include="Images\bullet.png" />
-    <Content Include="Images\facebook.png" />
-    <Content Include="Images\findHosting.png" />
-    <Content Include="Images\heroAccent.png" />
-    <Content Include="Images\NuGetGallery.png" />
-    <Content Include="Images\orderedListOne.png" />
-    <Content Include="Images\orderedListTwo.png" />
-    <Content Include="Images\orderedListThree.png" />
-    <Content Include="Images\twitter.png" />
-    <Content Include="Images\windowsLive.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Security\ChangePassword.cshtml" />
     <Content Include="Views\Security\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Security\Login.cshtml" />
     <Content Include="Views\Security\Register.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -441,6 +450,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\App\" />
+    <Folder Include="Images\Profiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -461,14 +471,54 @@
     <Content Include="Views\Security\ResetPassword.cshtml" />
     <Content Include="Views\Security\ResetPasswordSuccess.cshtml" />
     <Content Include="Views\Shared\_AppPartial.cshtml" />
-    <Content Include="Views\Shared\_IconPartial.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
-    <Content Include="Views\User\_UsrRoles.cshtml" />
+    <Content Include="Views\User\_UserRoles.cshtml" />
+    <Content Include="Views\User\Privilege.cshtml" />
+    <Content Include="Views\Setting\Index.cshtml" />
+    <Content Include="Views\Unitvalue\Index.cshtml" />
+    <Content Include="Views\Unitvalue\Details.cshtml" />
+    <Content Include="Views\Unitvalue\Create.cshtml" />
+    <Content Include="Views\Unitvalue\Edit.cshtml" />
+    <Content Include="Views\Unitvalue\Delete.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Project\Create.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Project\Delete.cshtml" />
+    <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\Supplier\Details.cshtml" />
+    <Content Include="Views\Supplier\Create.cshtml" />
+    <Content Include="Views\Supplier\Edit.cshtml" />
+    <Content Include="Views\Supplier\Delete.cshtml" />
+    <Content Include="Views\Purchase\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
+    <Content Include="Views\Shared\_IconPurchasePartial.cshtml" />
+    <Content Include="Views\Shared\_IconSalePartial.cshtml" />
+    <Content Include="Views\Shared\_IconAccountPartial.cshtml" />
+    <Content Include="Views\Shared\_IconInventoryPartial.cshtml" />
+    <Content Include="Views\Shared\_IconReportPartial.cshtml" />
+    <Content Include="Views\Shared\_IconHumanPartial.cshtml" />
+    <Content Include="Views\Shared\_IconSettingPartial.cshtml" />
+    <Content Include="Views\Unittype\Index.cshtml" />
+    <Content Include="Views\Unittype\Details.cshtml" />
+    <Content Include="Views\Unittype\Create.cshtml" />
+    <Content Include="Views\Unittype\Edit.cshtml" />
+    <Content Include="Views\Unittype\Delete.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PropertyManage.Data\PropertyManage.Data.csproj">

@@ -60,12 +60,17 @@
     <Compile Include="Repositories\Membership\ProfileRepository.cs" />
     <Compile Include="Repositories\Membership\RoleRepository.cs" />
     <Compile Include="Repositories\Membership\UserRepository.cs" />
+    <Compile Include="Repositories\PRM\CategoryRepository.cs" />
+    <Compile Include="Repositories\PRM\ProductRepository.cs" />
+    <Compile Include="Repositories\PRM\SupplierRepository.cs" />
+    <Compile Include="Repositories\Project\ProjectRepository.cs" />
+    <Compile Include="Repositories\Setting\UnitTypeRepository.cs" />
+    <Compile Include="Repositories\Setting\UnitValueRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\ARM\" />
     <Folder Include="Repositories\CRM\" />
     <Folder Include="Repositories\HRM\" />
-    <Folder Include="Repositories\PRM\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

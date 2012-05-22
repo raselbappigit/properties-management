@@ -50,10 +50,24 @@ public static class HtmlHelperExtensions
                                 : null;
             if (message != null)
             {
-                messages += "<div class='" + messageType.ToString().ToLower() + "'>" + message + "</div>";
+                messages += "<div class='notification " + messageType.ToString().ToLower() + "'><p><strong>" + messageType.ToString() + " : </strong>" + message + "</p></div>";
             }
         }
 
         return MvcHtmlString.Create(messages);
+    }
+
+    public static IHtmlString RenderActiveTab(this HtmlHelper htmlHelper)
+    {
+        var tabClass = String.Empty;
+
+        var viewBagTabClass = String.IsNullOrEmpty(htmlHelper.ViewContext.ViewBag.TabClass) ? null : htmlHelper.ViewContext.ViewBag.TabClass;
+        if (viewBagTabClass != null)
+        {
+            tabClass = viewBagTabClass;
+            htmlHelper.ViewContext.ViewBag.TabClass = null;
+        }
+
+        return MvcHtmlString.Create(tabClass);
     }
 }
