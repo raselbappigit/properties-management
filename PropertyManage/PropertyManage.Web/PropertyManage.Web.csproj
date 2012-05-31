@@ -153,9 +153,6 @@
     <Compile Include="Models\DataTableParamModel.cs" />
     <Compile Include="Models\DomainModels.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Models\fdfdContext.cs" />
-    <Compile Include="Models\ffdfdfContext.cs" />
-    <Compile Include="Models\ppppContext.cs" />
     <Compile Include="Models\SecurityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DomainViewModels.cs" />
@@ -519,6 +516,9 @@
     <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PropertyManage.Data\PropertyManage.Data.csproj">

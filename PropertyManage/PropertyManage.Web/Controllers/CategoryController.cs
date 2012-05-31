@@ -6,7 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PropertyManage.Domain;
-using PropertyManage.Web.Models;
 using PropertyManage.Service;
 using PropertyManage.Web.Helpers;
 

@@ -8,3 +8,13 @@ E:\Properties Management\Project v1\PropertyManage\PropertyManage.Data\bin\Debug
 E:\Properties Management\Project v1\PropertyManage\PropertyManage.Data\obj\Debug\ResolveAssemblyReference.cache
 E:\Properties Management\Project v1\PropertyManage\PropertyManage.Data\obj\Debug\PropertyManage.Data.dll
 E:\Properties Management\Project v1\PropertyManage\PropertyManage.Data\obj\Debug\PropertyManage.Data.pdb
+G:\PROJECT\Syntech bd IT\properties-management\PropertyManage\PropertyManage.Data\bin\Debug\PropertyManage.Data.dll.config
+G:\PROJECT\Syntech bd IT\properties-management\PropertyManage\PropertyManage.Data\bin\Debug\PropertyManage.Data.dll
+G:\PROJECT\Syntech bd IT\properties-management\PropertyManage\PropertyManage.Data\bin\Debug\PropertyManage.Data.pdb
+G:\PROJECT\Syntech bd IT\properties-management\PropertyManage\PropertyManage.Data\bin\Debug\EntityFramework.dll
+G:\PROJECT\Syntech bd IT\properties-management\PropertyManage\PropertyManage.Data\bin\Debug\PropertyManage.Domain.dll
+G:\PROJECT\Syntech bd IT\properties-management\PropertyManage\PropertyManage.Data\bin\Debug\PropertyManage.Domain.pdb
+G:\PROJECT\Syntech bd IT\properties-management\PropertyManage\PropertyManage.Data\bin\Debug\EntityFramework.xml
+G:\PROJECT\Syntech bd IT\properties-management\PropertyManage\PropertyManage.Data\obj\Debug\ResolveAssemblyReference.cache
+G:\PROJECT\Syntech bd IT\properties-management\PropertyManage\PropertyManage.Data\obj\Debug\PropertyManage.Data.dll
+G:\PROJECT\Syntech bd IT\properties-management\PropertyManage\PropertyManage.Data\obj\Debug\PropertyManage.Data.pdb
